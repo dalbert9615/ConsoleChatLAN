@@ -1,3 +1,6 @@
+# folder with sensibility info
+config/db.properties
+
 # Compiled class file
 *.class
 
