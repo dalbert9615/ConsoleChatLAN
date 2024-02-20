@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Client {
+    private static final String EXIT_COMMAND = "exit";
     public static void main(String[] args) {
 
         Scanner sc=new Scanner(System.in);
@@ -70,6 +71,10 @@ public class Client {
             //publica lo que el usuario escribe en la consola
             String message;
             while ((message = userInput.readLine()) != null) {
+                if(message.equals(EXIT_COMMAND)){
+                    System.out.printf("Closing client... \n");
+                    break;
+                }
                 output.println(message);
             }
 
