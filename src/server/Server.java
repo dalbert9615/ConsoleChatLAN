@@ -59,6 +59,7 @@ public class Server {
                 System.out.printf("Client %s connected.\n", nameClient);
                 clients.put(nameClient, output);
                 output.printf("Welcome, %s!\n", nameClient);
+                broadcastMessage(String.format("%s has connected.", nameClient), "Server");
 
                 // hilo que manipula la comunicación con el cliente
                 Thread clientHandlerThread = new Thread(new ClientHandler(socket, nameClient));
@@ -91,5 +92,6 @@ public class Server {
     public static void removeClient(String nameClient){
         clients.remove(nameClient);
         System.out.printf("Client %s disconnected. \n",nameClient);
+        broadcastMessage(String.format("%s has disconnected.", nameClient), "Server");
     }
 }
