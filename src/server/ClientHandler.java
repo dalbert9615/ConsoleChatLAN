@@ -33,6 +33,13 @@ public class ClientHandler implements Runnable {
         } catch (IOException e) {
             // destaca un mensaje de error en la consola
             System.err.printf("Error receiving message from client: %s \n", e.getMessage());
+        } finally {
+            Server.removeClient(nameClient);
+            try {
+                socket.close();
+            } catch (IOException e) {
+                System.err.printf("Error closing client socket: %s \n",e.getMessage());
+            }
         }
     }
 }
