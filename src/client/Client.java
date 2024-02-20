@@ -8,18 +8,34 @@ import java.util.*;
 public class Client {
     public static void main(String[] args) {
 
-        //obtencion de credenciales mediante db.properties (no se sube a github)
-        Properties properties = new Properties();
-        try {
-            properties.load(new FileInputStream("config/db.properties"));
-        } catch (IOException e) {
-            System.err.printf("Error load 'db.properties' %s \n", e.getMessage());
-            return;
+        Scanner sc=new Scanner(System.in);
+        String serverIp="";
+        int port=0;
+        while (true) {
+            try {
+                System.out.printf("Enter server IP:");
+                serverIp=sc.nextLine();
+                Inet4Address.getByName(serverIp);
+                break;
+            } catch (UnknownHostException e) {
+                System.err.printf("Invalid IP address, please enter a valid IP address. %s \n",e.getMessage());
+            }
         }
-        final String serverIp = properties.getProperty("serverIp");
-        final int port = Integer.parseInt(properties.getProperty("port"));
-        //
-        
+        while (true) {
+            try {
+                System.out.printf("Enter port:");
+                port=Integer.parseInt(sc.nextLine());
+                if(port>0 && port<=65535){
+                    break;
+                }
+                else{
+                    System.err.printf("Invalid port number. Valid:[1-65535] \n");
+                }
+            } catch (NumberFormatException e) {
+                System.err.printf("Invalid port number, please enter a valid integer number. %s \n",e.getMessage());
+            }
+        }
+
         try {
             //nuevo Socket -> interfaz de comunicación mediante red
             Socket socket = new Socket(serverIp, port);
